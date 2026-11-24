@@ -27,6 +27,16 @@ Install only the [latest GitHub Release](https://github.com/bimwright/rvt-mcp/re
 
 ## Unreleased
 
+### PDF Drawing Review for Revit 2027
+
+- New **Add-Ins \u2192 RvtMcp \u2192 Drawing Review** command in the Revit 2027 add-in: import PDF pages as reference images, review plan/elevation/section pages in a markup editor, and get wall/door/window proposals from the local detector or the bundled Codex agent (`scripts/drawing-review-agent.py`, embedded in the plugin). Elevations and sections produce height, opening and construction-assembly notes; plan alignment is saved per plan with A/B anchors and a chosen Revit level.
+- Approved reviews are exposed to MCP as the `revit://drawing-review/{viewKey}/{offset}` resource and via `get_current_view_info` (`approvedDrawingReviewUri`); the `get_approved_drawing_review` wire command is read-only-listed in `ToolReadPolicy`. All of it is compiled only for `REVIT2027_OR_GREATER`.
+- `src/plugin-r27` now depends on PdfPig; plugin ZIPs and the deploy target ship `UglyToad.PdfPig*.dll`. See [docs/drawing-review.md](docs/drawing-review.md).
+
+### Revit 2027 MSI packaging
+
+- `scripts/package-msi-r27.ps1` builds a per-user `RvtMcp.Revit2027-v<version>-win-x64.msi` (+ `.sha256`) installing the 2027 add-in into `%APPDATA%\Autodesk\Revit\Addins\2027\RvtMcp\` and the self-contained server into `%LOCALAPPDATA%\Bimwright\rvt-mcp\server\current\`. CI job `msi-r27` builds and uploads it. See [docs/install.md](docs/install.md#revit-2027-msi-distribute-to-a-colleague).
+
 ### Target binding (#19)
 
 - Once a session has a binding, `auto`/year selectors no longer move it to another instance, including after the previous instance exited or stopped its listener. Select the new instance with `pid:`/`id:`; leaving a live confirmed instance still requires `rebind=true`. The first selection in a new session still accepts `auto`/year when exactly one instance matches.

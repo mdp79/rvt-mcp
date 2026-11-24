@@ -176,6 +176,22 @@ powershell -ExecutionPolicy Bypass -File .\scripts\uninstall-all.ps1 -Yes
 
 Removes the add-ins for every Revit year 2022–2027 (including Bimwright-era copies), the self-contained server, both legacy `revit-YYYY.json` and per-instance `revit-YYYY-PID.json` discovery files, and the spill cache. Both descriptor formats are removed regardless of the installed version, under the current `%LOCALAPPDATA%\Bimwright\rvt-mcp\` root and any leftover legacy `%LOCALAPPDATA%\RvtMcp\` root. MCP client configs are not touched — use `install.ps1 -Uninstall -Client <names>` to strip just the `rvt-mcp` entry, or remove it from your clients yourself. A server copy that a running MCP client still uses is kept; close the client and run again. Everything else under `%LOCALAPPDATA%\Bimwright\rvt-mcp` (settings, translations, ToolBaker data, firm profiles, shared parameters, logs, captures) is kept. `-Purge` deletes the whole folder; `-Purge -KeepLogs` keeps logs.
 
+## Revit 2027 MSI (distribute to a colleague)
+
+`scripts/package-msi-r27.ps1` (CI job `msi-r27`) builds a per-user MSI, `RvtMcp.Revit2027-v<version>-win-x64.msi` plus a `.msi.sha256` sidecar, from the Release build output. Hand your colleague the MSI and sidecar and have them verify the hash before running:
+
+```powershell
+$expected = ((Get-Content RvtMcp.Revit2027-v<version>-win-x64.msi.sha256 -Raw).Trim() -split '\s+')[0]
+(Get-FileHash RvtMcp.Revit2027-v<version>-win-x64.msi -Algorithm SHA256).Hash -eq $expected
+```
+
+The MSI requires no .NET SDK and installs only:
+
+- the Revit 2027 add-in into `%APPDATA%\Autodesk\Revit\Addins\2027\RvtMcp\` (with its runtime dependencies and the embedded Drawing Review agent script);
+- the self-contained MCP server into `%LOCALAPPDATA%\Bimwright\rvt-mcp\server\current\rvt-mcp.exe`.
+
+It does not wire any MCP client. After installing, point the client at the server path above (stdio, no args) as in [mcp-client-wiring.md](mcp-client-wiring.md), then start MCP from **Add-Ins \u2192 RvtMcp** in Revit 2027 and verify with `revit_get_current_view_info`. The MSI does not create `rvtmcp.config.json`; a bare server defaults to `query,create,view,meta` \u2014 seed `"toolsets": ["all"]` for the full surface, or run the setup ZIP's `install.ps1 -WhatIf -Client <name>` afterwards for the standard flow. Uninstall via Windows Settings \u2192 Apps; it removes exactly the two directories above.
+
 ## Developer install
 
 ```powershell
