@@ -32,6 +32,7 @@ Install only the [latest GitHub Release](https://github.com/bimwright/rvt-mcp/re
 - New **Add-Ins \u2192 RvtMcp \u2192 Drawing Review** command in the Revit 2027 add-in: import PDF pages as reference images, review plan/elevation/section pages in a markup editor, and get wall/door/window proposals from the local detector or the bundled Codex agent (`scripts/drawing-review-agent.py`, embedded in the plugin). Elevations and sections produce height, opening and construction-assembly notes; plan alignment is saved per plan with A/B anchors and a chosen Revit level.
 - Approved reviews are exposed to MCP as the `revit://drawing-review/{viewKey}/{offset}` resource and via `get_current_view_info` (`approvedDrawingReviewUri`); the `get_approved_drawing_review` wire command is read-only-listed in `ToolReadPolicy`. All of it is compiled only for `REVIT2027_OR_GREATER`.
 - `src/plugin-r27` now depends on PdfPig; plugin ZIPs and the deploy target ship `UglyToad.PdfPig*.dll`. See [docs/drawing-review.md](docs/drawing-review.md).
+- New read-only tool **`revit_get_approved_drawing_review`** (`query` toolset) reading the approved review over the wire command added to `ToolReadPolicy`. Development source counts: bare defaults **51**, `--toolsets all` **238**, adaptive bake **241**.
 
 ### Revit 2027 MSI packaging
 

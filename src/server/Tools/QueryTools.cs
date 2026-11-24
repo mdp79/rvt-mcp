@@ -14,6 +14,12 @@ namespace RvtMcp.Server
         public static async Task<string> GetCurrentViewInfo()
             => await ToolGateway.CallAsync("get_current_view_info");
 
+        [McpServerTool(Name = "revit_get_approved_drawing_review", ReadOnly = true, Destructive = false, Idempotent = true, OpenWorld = false), System.ComponentModel.Description("Read an approved PDF Drawing Review for a Revit 2027 drafting view: reviewed marks, plan alignment and construction evidence. Use after 'Approve for MCP' in the Drawing Review editor; the key appears in the shown revit://drawing-review/{viewKey}/{offset} resource URI and in this tool's approvedDrawingReviewUri output. Params: viewKey is that key, offset is 0 for the first chunk then the returned nextOffset. Example: revit_get_approved_drawing_review(viewKey=\"plan-12\", offset=0). Drafts are not readable; Revit 2027 add-in only.")]
+        public static async Task<string> GetApprovedDrawingReview(
+            [System.ComponentModel.Description("Review key from the revit://drawing-review/{viewKey}/{offset} URI, 1-80 chars.")] string viewKey,
+            [System.ComponentModel.Description("Chunk offset; 0 for the first chunk, then the returned nextOffset.")] int offset = 0)
+            => await ToolGateway.CallAsync("get_approved_drawing_review", new { viewKey, offset });
+
         [McpServerTool(Name = "revit_get_selected_elements", ReadOnly = true, Destructive = false, Idempotent = true, OpenWorld = false), System.ComponentModel.Description("Get currently selected Revit elements with paging. Use startIndex + maxResults (default 200, hard max 1000).")]
         public static async Task<string> GetSelectedElements(int startIndex = 0, int maxResults = 200)
             => await ToolGateway.CallAsync("get_selected_elements", new { start_index = startIndex, max_results = maxResults });
