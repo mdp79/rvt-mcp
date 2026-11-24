@@ -24,6 +24,9 @@
     <EmbeddedResource Include="..\..\LICENSE">
       <LogicalName>RvtMcp.LICENSE</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\..\scripts\drawing-review-agent.py">
+      <LogicalName>RvtMcp.DrawingReview.Agent.py</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <!-- Revit 2027 API via Nice3point NuGet packages -->
@@ -38,6 +41,7 @@
     <!-- Pin patched native SQLite without changing managed assembly bindings. -->
     <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.13" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+    <PackageReference Include="PdfPig" Version="0.1.16" />
   </ItemGroup>
 
   <Target Name="Deploy" AfterTargets="Build" Condition="'$(Configuration)' != '' and '$(RvtMcpSkipDeploy)' != 'true'">
@@ -45,7 +49,7 @@
       <DeployDir>$(APPDATA)\Autodesk\Revit\Addins\2027\RvtMcp\</DeployDir>
     </PropertyGroup>
     <ItemGroup>
-      <DeployFiles Include="$(OutputPath)RvtMcp.*.dll;$(OutputPath)Newtonsoft.Json.dll;$(OutputPath)Microsoft.Data.Sqlite.dll;$(OutputPath)SQLitePCLRaw*.dll;$(OutputPath)Microsoft.CodeAnalysis*.dll" />
+      <DeployFiles Include="$(OutputPath)RvtMcp.*.dll;$(OutputPath)Newtonsoft.Json.dll;$(OutputPath)Microsoft.Data.Sqlite.dll;$(OutputPath)SQLitePCLRaw*.dll;$(OutputPath)Microsoft.CodeAnalysis*.dll;$(OutputPath)UglyToad.PdfPig*.dll" />
       <DeployNativeSqlite Include="$(OutputPath)runtimes\win-x64\native\e_sqlite3.dll" Condition="Exists('$(OutputPath)runtimes\win-x64\native\e_sqlite3.dll')" />
     </ItemGroup>
     <MakeDir Directories="$(DeployDir)" />

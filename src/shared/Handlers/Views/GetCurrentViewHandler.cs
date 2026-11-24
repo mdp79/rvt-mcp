@@ -22,6 +22,10 @@ namespace RvtMcp.Plugin.Handlers
             {
                 viewId = RevitCompat.GetId(view.Id),
                 viewName = view.Name,
+#if REVIT2027_OR_GREATER
+                approvedDrawingReviewUri = Views.DrawingReview.DrawingReviewStore.IsApproved(view)
+                    ? Views.DrawingReview.DrawingReviewStore.Uri(view) : null,
+#endif
                 viewType = view.ViewType.ToString(),
                 levelName = view.GenLevel?.Name,
                 levelId = RevitCompat.GetIdOrNull(view.GenLevel?.Id),

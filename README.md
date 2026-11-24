@@ -425,6 +425,7 @@ More: [SECURITY.md](SECURITY.md), [docs/bake.md](docs/bake.md).
 | [docs/bake.md](docs/bake.md) | Adaptive bake and body privacy |
 | [docs/localization.md](docs/localization.md) | UI languages, overrides, hot reload |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Build, test, add a tool |
+| [PDF Drawing Review](docs/drawing-review.md) | Review plans, elevations, and sections in Revit 2027 |
 | [CHANGELOG.md](CHANGELOG.md) | Release notes |
 
 ---
