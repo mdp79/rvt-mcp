@@ -110,6 +110,7 @@ namespace RvtMcp.Plugin
             "show_message",
             "suggest_view_name_corrections",
             "survey_change_impact",
+            "get_approved_drawing_review",
             "workflow_model_audit",
         };
 

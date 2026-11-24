@@ -70,6 +70,16 @@ namespace RvtMcp.Plugin
             if (config?.EnableAdaptiveBakeOrDefault == true)
                 bakeInboxButton = AddBakeInboxButton(panel, assemblyPath);
 
+#if REVIT2027_OR_GREATER
+            const string drawingReview = "DrawingReview";
+            AddPushButton(panel, new PushButtonData(drawingReview, "Drawing\nReview", assemblyPath,
+                typeof(Commands.DrawingReviewCommand).FullName)
+            {
+                LargeImage = IconGenerator.Info32,
+                ToolTip = "Import a PDF page or review the PDF in this drafting view."
+            }, drawingReview);
+#endif
+
             panel.AddSlideOut();
             var settingsButton = AddSettingsButton(panel, assemblyPath);
             var languageButton = AddLanguageButton(panel, assemblyPath);

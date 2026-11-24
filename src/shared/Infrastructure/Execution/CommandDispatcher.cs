@@ -14,6 +14,9 @@ namespace RvtMcp.Plugin
             _runtimeCache = runtimeCache;
             Register(new Handlers.ShowMessageHandler());
             Register(new Handlers.GetCurrentViewHandler());
+#if REVIT2027_OR_GREATER
+            Register(new Handlers.GetApprovedDrawingReviewHandler());
+#endif
             Register(new Handlers.GetChangeHistoryContextHandler());
             Register(new Handlers.GetSelectedElementsHandler());
             Register(new Handlers.GetFamilyTypesHandler());

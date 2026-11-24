@@ -1,6 +1,6 @@
 {
   "generated_by": "ToolsListSnapshotTests",
-  "tool_count": 240,
+  "tool_count": 241,
   "tools": [
     {
       "name": "revit_accept_bake_suggestion",
@@ -3855,6 +3855,32 @@
         },
         "required": [
           "category"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "revit_get_approved_drawing_review",
+      "description_hash": "sha256:fb3e7dcf406af2c37c414dcea81ceb9c5868d02150455515069324896091626e",
+      "inputSchema": {
+        "properties": {
+          "offset": {
+            "description": "Chunk offset; 0 for the first chunk, then the returned nextOffset.",
+            "type": "Int32"
+          },
+          "viewKey": {
+            "description": "Review key from the revit://drawing-review/{viewKey}/{offset} URI, 1-80 chars.",
+            "type": "String"
+          }
+        },
+        "required": [
+          "viewKey"
         ],
         "type": "object"
       },

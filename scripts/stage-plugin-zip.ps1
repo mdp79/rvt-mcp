@@ -79,6 +79,7 @@ foreach ($s in $shells) {
         'Microsoft.Data.Sqlite.dll',
         'SQLitePCLRaw*.dll',
         'Microsoft.CodeAnalysis*.dll',
+        'UglyToad.PdfPig*.dll',
         'System.Collections.Immutable.dll',   # net48 only, harmless glob-miss on net8/10
         'System.Reflection.Metadata.dll',     # net48 only
         'System.Memory.dll',                  # SQLitePCLRaw net48 dependencies

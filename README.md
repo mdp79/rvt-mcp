@@ -14,7 +14,7 @@
   <a href="https://github.com/bimwright/rvt-mcp/actions/workflows/build.yml"><img src="https://github.com/bimwright/rvt-mcp/actions/workflows/build.yml/badge.svg" alt="build" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="license" /></a>
   <a href="#supported-revit-versions"><img src="https://img.shields.io/badge/Revit-2022--2027-186BFF" alt="Revit 2022-2027" /></a>
-  <a href="#tools"><img src="https://img.shields.io/badge/MCP-237%20tools-6C47FF" alt="MCP tools" /></a>
+  <a href="#tools"><img src="https://img.shields.io/badge/MCP-238%20tools-6C47FF" alt="MCP tools" /></a>
   <a href="https://github.com/bimwright/rvt-mcp/releases/latest"><img src="https://img.shields.io/github/v/release/bimwright/rvt-mcp" alt="latest release" /></a>
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-version%20history-informational" alt="changelog" /></a>
 </p>
@@ -92,10 +92,10 @@ Counts below match the **v1.2.0 release**; later development builds can expose a
 
 | Mode | Tools | Notes |
 |------|------:|-------|
-| Fresh install | **237** | `install.ps1` seeds `"toolsets": ["all"]` in `rvtmcp.config.json` |
-| Bare `rvt-mcp.exe` | **50** | `query` + `create` + `view` + `meta` |
-| `--toolsets all` | **237** | Full catalog |
-| `all` + adaptive bake | **240** | Adds 3 suggestion-lifecycle tools |
+| Fresh install | **238** | `install.ps1` seeds `"toolsets": ["all"]` in `rvtmcp.config.json` |
+| Bare `rvt-mcp.exe` | **51** | `query` + `create` + `view` + `meta` |
+| `--toolsets all` | **238** | Full catalog |
+| `all` + adaptive bake | **241** | Adds 3 suggestion-lifecycle tools |
 
 Counts exclude your personal baked tools. The installer writes the seeded default only when `rvtmcp.config.json` doesn't already set `toolsets` — your own list survives upgrades, and removing the key (or setting your own CSV) returns a bare server to the 50-tool surface. Read-only filters individual tools by `ReadOnly=true`, including reads inside mixed toolsets. Tools that can write files are excluded even when their default output is inline.
 
@@ -258,6 +258,7 @@ MCP annotations describe each tool's document/file effects. Transient selection,
       "mcp__rvt-mcp__revit_find_schedule_elements",
       "mcp__rvt-mcp__revit_find_undimensioned_elements",
       "mcp__rvt-mcp__revit_find_untagged_elements",
+      "mcp__rvt-mcp__revit_get_approved_drawing_review",
       "mcp__rvt-mcp__revit_get_assembly_members",
       "mcp__rvt-mcp__revit_get_available_family_types",
       "mcp__rvt-mcp__revit_get_change_records",
@@ -425,6 +426,7 @@ More: [SECURITY.md](SECURITY.md), [docs/bake.md](docs/bake.md).
 | [docs/bake.md](docs/bake.md) | Adaptive bake and body privacy |
 | [docs/localization.md](docs/localization.md) | UI languages, overrides, hot reload |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Build, test, add a tool |
+| [PDF Drawing Review](docs/drawing-review.md) | Review plans, elevations, and sections in Revit 2027 |
 | [CHANGELOG.md](CHANGELOG.md) | Release notes |
 
 ---

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  RvtMcp Revit 2027 MSI template (WiX v4+).
+
+  scripts/package-msi-r27.ps1 copies this file next to a generated
+  harvested.wxs (file components for the staged add-in and server) and runs:
+
+    wix build -arch x64 -d StageDir=<stage> -d PackageVersion=<version> \
+        -o RvtMcp.Revit2027-v<version>-win-x64.msi RvtMcp.Revit2027.wxs
+
+  The MSI is per-user: it installs the Revit 2027 add-in into
+  %APPDATA%\Autodesk\Revit\Addins\2027\RvtMcp\ and the self-contained MCP
+  server into %LOCALAPPDATA%\Bimwright\rvt-mcp\server\current\.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="RvtMcp for Revit 2027"
+           Manufacturer="Bimwright"
+           Version="$(var.PackageVersion)"
+           UpgradeCode="7A9C4E21-3F5D-4B8A-9C1E-2D6F0A5B8E71"
+           Scope="perUser"
+           InstallerVersion="500">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of RvtMcp for Revit 2027 is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="RvtMcp2027Feature" Title="RvtMcp Revit 2027 add-in and MCP server" Level="1">
+      <ComponentGroupRef Id="AddinComponents" />
+      <ComponentGroupRef Id="ServerComponents" />
+    </Feature>
+
+    <!-- MCP server: %LOCALAPPDATA%\Bimwright\rvt-mcp\server\current\ -->
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="BimwrightDir" Name="Bimwright">
+        <Directory Id="RvtMcpDataDir" Name="rvt-mcp">
+          <Directory Id="ServerDir" Name="server">
+            <Directory Id="CurrentDir" Name="current" />
+          </Directory>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+
+    <!-- Revit 2027 add-in: %APPDATA%\Autodesk\Revit\Addins\2027\RvtMcp\ -->
+    <StandardDirectory Id="AppDataFolder">
+      <Directory Id="AutodeskDir" Name="Autodesk">
+        <Directory Id="RevitDir" Name="Revit">
+          <Directory Id="AddinsDir" Name="Addins">
+            <Directory Id="Addins2027Dir" Name="2027">
+              <Directory Id="RvtMcpAddinsDir" Name="RvtMcp" />
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+  </Package>
+
+  <?include harvested.wxs ?>
+</Wix>
