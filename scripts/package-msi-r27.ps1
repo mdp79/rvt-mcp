@@ -10,7 +10,8 @@
     - the self-contained win-x64 MCP server into
       %LOCALAPPDATA%\Bimwright\rvt-mcp\server\current\rvt-mcp.exe
 
-  Requires the WiX v4+ CLI on PATH:  dotnet tool install --global wix
+  Requires the WiX v6 CLI on PATH (v7+ requires the OSMF EULA):
+    dotnet tool install --global wix --version '6.*'
 
   Client (MCP app) wiring is intentionally not part of the MSI; point the
   client at the server path above, see docs/install.md.
